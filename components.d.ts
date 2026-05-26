@@ -13,6 +13,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     AButton: typeof import('ant-design-vue/es')['Button']
     AConfigProvider: typeof import('ant-design-vue/es')['ConfigProvider']
+    ASpin: typeof import('ant-design-vue/es')['Spin']
     GlobalLayoutConfigProvider: typeof import('./src/components/global/layout/global-layout-config-provider.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

@@ -1,3 +1,7 @@
+# 优先级大于.vscode/settings.json;但控制的属性有限，例如我们敲tab缩进4个空格，覆盖的是setting中的"editor.tabSize": 4这些敲时候的规则
+# 而.vscode/settings.json中是设置保存时候进行.pettrier的格式化，保存之后会变为2个空格的缩进(如果.prettierrc.json设置了"tabWidth": 2，否则还是按照.editorconfig中的tabSize进行缩进)
+# 优先级：敲的时候（未保存）.editconfig > .vscode/settings.json（editor.tabSize）
+# 优先级：保存的时候（pettrier格式化）.prettierrc.json（tabWidth） > .editorconfig（tabSize）
 [*.{js,jsx,mjs,cjs,ts,tsx,mts,cts,vue,css,scss,sass,less,styl}]
 charset = utf-8 
 indent_size = 2

@@ -30,14 +30,14 @@ export default defineConfig({
     host: '0.0.0.0',
     port: 5173,
     open: true,
-    // proxy: {
-    //   // 开发环境接口代理，按需修改
-    //   '/api': {
-    //     target: 'http://localhost:3000',
-    //     changeOrigin: true,
-    //     rewrite: (path) => path.replace(/^\/api/, ''),
-    //   },
-    // },
+    proxy: {
+      // 开发环境接口代理，按需修改
+      '/api': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
   },
   // 全局注入less变量
   css: {

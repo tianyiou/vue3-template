@@ -5,7 +5,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/',
     name: 'Home',
-    component: () => import('@/views/Test.vue'), // 懒加载
+    component: () => import('@/views/test/test-list.vue'), // 懒加载
   },
   // 404 路由（可选）
   // {
