@@ -1,6 +1,7 @@
 import axios, { type AxiosResponse, type InternalAxiosRequestConfig } from 'axios'
 import { message } from 'ant-design-vue'
 import useRequestLoading from '@/use/http/use-request-loading'
+import requestManager from './request-manager'
 
 // 获取请求头
 const getHttpHeader = (config: InternalAxiosRequestConfig) => {
@@ -32,6 +33,8 @@ const http = axios.create({
 // ---------- 请求拦截器 ----------
 http.interceptors.request.use(
   async (config: InternalAxiosRequestConfig) => {
+    requestManager.addPendingRequest(config) // 添加请求到 pending 队列
+
     increase(config.showLoading) // 增加加载计数
 
     // 自动注入 Token
@@ -48,6 +51,10 @@ http.interceptors.request.use(
 // ---------- 响应拦截器 ----------
 http.interceptors.response.use(
   (response: AxiosResponse) => {
+    if (response.config) {
+      requestManager.removePendingRequest(response.config) // 响应结束，移除 pending 队列中的请求
+    }
+
     // 响应结束，减少加载计数
     decrease(response.config.showLoading)
 
@@ -60,6 +67,10 @@ http.interceptors.response.use(
     return response.data?.body || response.data
   },
   (error) => {
+    if (error.config) {
+      requestManager.removePendingRequest(error.config) // 响应结束，移除 pending 队列中的请求
+    }
+
     // 响应结束，减少加载计数
     decrease(error.response?.config?.showLoading)
 
@@ -90,7 +101,7 @@ http.interceptors.response.use(
             error?.response?.data?.msg || errorMsgMap[error.response?.status] || '请求失败'
           message.error(errorMsg)
       }
-    } else if (error.code === 'ERR_CANCELED') {
+    } else if (axios.isCancel(error) || error.isCanceled || error.code === 'ERR_CANCELED') {
       // 主动取消的请求，不提示错误
       console.warn('请求已取消:', error.message)
     } else {
