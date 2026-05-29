@@ -1,0 +1,12 @@
+{
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "vue.complete.casing.tags": "autoKebab",
+  "cSpell.words": ["echarts", "elec", "fliggy", "idphoto", "rebuy"]
+}
+
